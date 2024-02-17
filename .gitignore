@@ -1,6 +1,14 @@
 # Compiled class file
 *.class
 
+### IntelliJ IDEA ###
+.idea
+G2B6_FullStack_GroupAssignment1/.idea
+G2B6_FullStack_GroupAssignment1/out
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
 # Log file
 *.log
 
@@ -22,3 +30,6 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+### Mac OS ###
+.DS_Store
