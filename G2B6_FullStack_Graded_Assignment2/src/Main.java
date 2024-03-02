@@ -34,6 +34,22 @@ import com.bst.Node;
 
 public class Main {
     public static void main(String[] args) {
+        // Test BST code.
+        System.out.println("**************************");
+        System.out.println("Testing skewed BST code");
+        testBST();
+        System.out.println("**************************\n");
+
+        // Testing floor plan.
+        System.out.println("**************************");
+        System.out.println("Testing floor plan");
+        testFloor();
+        System.out.println("**************************\n");
+    }
+    public static void testFloor() {
+
+    }
+    public static void testBST() {
         // Create BST
         Node Tree = new Node(50);
         BinarySearchTree bst = new BinarySearchTree(Tree);
