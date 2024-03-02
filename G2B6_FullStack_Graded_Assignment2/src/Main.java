@@ -1,72 +1,41 @@
-/**
- * Group assigment 2
- *
- * @author Pranav Kumar Ojha, Faisal Raza Khan, Haritha, Shreya Singh, Prajna
- *
- *
- * This class shows how to convert a balanced BST to a Skewed tree.
- *
- * Example -
- *
- * Input:
- *                   50
- *                 /    \
- *                30     60
- *               / \    /
- *              10 20   55
- *
- * Output:
- *      10
- *       \
- *        20
- *         \
- *          30
- *           \
- *            50
- *             \
- *              55
- *               \
- *                60
- */
-
-import com.bst.BinarySearchTree;
-import com.bst.Node;
-
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
-        // Test BST code.
-        System.out.println("**************************");
-        System.out.println("Testing skewed BST code");
-        testBST();
-        System.out.println("**************************\n");
-
-        // Testing floor plan.
-        System.out.println("**************************");
-        System.out.println("Testing floor plan");
-        testFloor();
-        System.out.println("**************************\n");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the total number of floors in the building: ");
+        int N = scanner.nextInt();
+        List<Integer> floors = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            System.out.print("Enter the floor size given on day " + (i + 1) + ": ");
+            int size = scanner.nextInt();
+            floors.add(size);
+        }
+        List<Integer> assembledFloors = constructSkyscraper(N, floors);
+        System.out.println("The order of construction is as follows:");
+        int day = 1;
+        for (int floorSize : assembledFloors) {
+            if (floorSize != 0) {
+                System.out.println("Day: " + day + " " + floorSize);
+                day++;
+            } else {
+                System.out.println("Day: " + day);
+                day++;
+            }
+        }
     }
-    public static void testFloor() {
-
-    }
-    public static void testBST() {
-        // Create BST
-        Node Tree = new Node(50);
-        BinarySearchTree bst = new BinarySearchTree(Tree);
-        bst.insertNode(30);
-        bst.insertNode(60);
-        bst.insertNode(10);
-        bst.insertNode(20);
-        bst.insertNode(55);
-        System.out.println("Binary Tree created: \n" + bst.getRoot() + "\n");
-
-        // Print skewed tree with sorted method.
-        BinarySearchTree skewed_bst = new BinarySearchTree();
-        skewed_bst = bst.getRightSkewedTree("sort");
-        System.out.println(" Sorted BST Method 1: \n" + skewed_bst.getRoot());
-
-        // Print skewed tree using in-order traversal method.
-        skewed_bst = bst.getRightSkewedTree("inorder");
-        System.out.println("Inorder BST Method 2: \n" + skewed_bst.getRoot());
+    public static List<Integer> constructSkyscraper(int N, List<Integer> floors) {
+        List<Integer> assembledFloors = new ArrayList<>();
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+        for (int i = 0; i < N; i++) {
+            int currentFloorSize = floors.get(i);
+            priorityQueue.add(currentFloorSize);
+            while (!priorityQueue.isEmpty() && priorityQueue.peek() == N - i) {
+                assembledFloors.add(priorityQueue.poll());
+                N--;
+            }
+        }
+        for (int i = 0; i < N; i++) 
+            assembledFloors.add(0);
+        return assembledFloors;
     }
 }
