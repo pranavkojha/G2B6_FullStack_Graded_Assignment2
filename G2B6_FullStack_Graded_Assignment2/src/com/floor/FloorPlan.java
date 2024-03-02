@@ -1,6 +1,10 @@
 package com.floor;
 
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Collections;
 
 public class FloorPlan {
     private Integer floors;
