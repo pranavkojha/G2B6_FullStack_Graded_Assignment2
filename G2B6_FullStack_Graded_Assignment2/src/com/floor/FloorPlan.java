@@ -1,6 +1,9 @@
 package com.floor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class FloorPlan {
     private Integer floors;
@@ -39,19 +42,34 @@ public class FloorPlan {
         this.floorSizeList = floorSizeList;
     }
 
+    /**
+     * Main algorithm that prints the floors need to be constructed on which day.
+     */
     public void printFloorPlan() {
+        // Make a copy for floorSizeList.
         ArrayList<Integer> sortedFloorList = new ArrayList<Integer>(this.floorSizeList);
+
+        // Sort the copy of list made above in descending order.
         Collections.sort(sortedFloorList, Collections.reverseOrder());
+
+        // We use 2 indexes to track the floorSize and sorted floor size.
         int floorSizeIdx = 0, sortedFloorSizeIdx=0;
         Stack<Integer> stack = new Stack<>();
         while(floorSizeIdx < this.floorSizeList.size()) {
             System.out.println("Day: " + (floorSizeIdx+1));
+
+            // Until we get the largest floor size ready, push all received floors to stack.
             if (this.floorSizeList.get(floorSizeIdx) != sortedFloorList.get(sortedFloorSizeIdx)) {
                 System.out.println("");
                 stack.push(this.floorSizeList.get(floorSizeIdx++));
-            } else {
+            }
+            // Once we receive the floor, we assemble the given floor along with rest of the floors.
+            else
+            {
                 System.out.print(this.floorSizeList.get(floorSizeIdx++));
                 sortedFloorSizeIdx++;
+
+                // Assemble all smaller floor received as well.
                 while(!stack.isEmpty()){
                     System.out.print(" " + stack.pop());
                     sortedFloorSizeIdx++;

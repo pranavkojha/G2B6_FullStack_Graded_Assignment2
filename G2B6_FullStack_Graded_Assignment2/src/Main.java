@@ -1,7 +1,7 @@
 /**
  * Group assigment 2
  *
- * @author Pranav Kumar Ojha, Faisal Raza Khan, Haritha, Shreya Singh, Prajna
+ * @author Pranav Kumar Ojha, Shreya Singh, Faisal Raza Khan.
  *
  * Q1. This class show how to plan floor construction for skyscraper.
  *
