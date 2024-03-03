@@ -1,14 +1,10 @@
 package com.floor;
 
-import java.util.List;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.Collections;
+import java.util.*;
 
 public class FloorPlan {
     private Integer floors;
-    private Integer[] floorSize;
+    private ArrayList<Integer> floorSizeList;
     
     // Constructors.
     public FloorPlan() {
@@ -18,10 +14,10 @@ public class FloorPlan {
         this.floors = in.nextInt();
         
         // Accept size on given day
-        floorSize = new Integer[this.floors];
+        floorSizeList = new ArrayList<Integer>();
         for(int i=0; i < this.floors; i++) {
             System.out.println("\tEnter the floor size given on day " + (i+1) + ": ");
-            this.floorSize[i] = in.nextInt();
+            this.floorSizeList.add(in.nextInt());
         }
     }
 
@@ -31,47 +27,38 @@ public class FloorPlan {
         Scanner in = new Scanner(System.in);
 
         // Accept size on given day
-        floorSize = new Integer[this.floors];
+        floorSizeList = new ArrayList<Integer>();
         for(int i=0; i < this.floors; i++) {
             System.out.println("\tEnter the floor size given on day " + (i+1) + ": ");
-            this.floorSize[i] = in.nextInt();
+            this.floorSizeList.add(in.nextInt());
         }
     }
-    public FloorPlan(int floors, Integer[] floorSize) {
+    public FloorPlan(int floors, ArrayList<Integer> floorSizeList) {
         // Accept floors.
         this.floors = floors;
-        this.floorSize = floorSize;
+        this.floorSizeList = floorSizeList;
     }
 
     public void printFloorPlan() {
-        List<Integer> assembledFloors = this.constructSkyscraper();
-        System.out.println("The order of construction is as follows:");
-        int day = 1;
-        for (int floorSize : assembledFloors) {
-            if (floorSize != 0) {
-                System.out.println("Day: " + day + " " + floorSize);
-                day++;
+        ArrayList<Integer> sortedFloorList = new ArrayList<Integer>(this.floorSizeList);
+        Collections.sort(sortedFloorList, Collections.reverseOrder());
+        int floorSizeIdx = 0, sortedFloorSizeIdx=0;
+        Stack<Integer> stack = new Stack<>();
+        while(floorSizeIdx < this.floorSizeList.size()) {
+            System.out.println("Day: " + (floorSizeIdx+1));
+            if (this.floorSizeList.get(floorSizeIdx) != sortedFloorList.get(sortedFloorSizeIdx)) {
+                System.out.println("");
+                stack.push(this.floorSizeList.get(floorSizeIdx++));
             } else {
-                System.out.println("Day: " + day);
-                day++;
+                System.out.print(this.floorSizeList.get(floorSizeIdx++));
+                sortedFloorSizeIdx++;
+                while(!stack.isEmpty()){
+                    System.out.print(" " + stack.pop());
+                    sortedFloorSizeIdx++;
+                }
+                System.out.println("");
             }
         }
-    }
-
-    private List<Integer> constructSkyscraper() {
-        List<Integer> assembledFloors = new ArrayList<>();
-        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
-        for (int i = 0; i < this.floors; i++) {
-            int currentFloorSize = this.floorSize[i];
-            priorityQueue.add(currentFloorSize);
-            while (!priorityQueue.isEmpty() && priorityQueue.peek() == this.floors - i) {
-                assembledFloors.add(priorityQueue.poll());
-                this.floors--;
-            }
-        }
-        for (int i = 0; i < this.floors; i++)
-            assembledFloors.add(0);
-        return assembledFloors;
     }
 
 }

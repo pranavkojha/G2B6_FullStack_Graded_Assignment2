@@ -34,6 +34,8 @@ import com.bst.BinarySearchTree;
 import com.bst.Node;
 import com.floor.FloorPlan;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         // Test BST code.
@@ -49,8 +51,23 @@ public class Main {
         System.out.println("**************************\n");
     }
     public static void testFloor() {
-        //Integer[] input = {3,1,2};
-        FloorPlan fp = new FloorPlan();
+        ArrayList<Integer> input1 = new ArrayList<Integer>() {
+            {
+                add(3);
+                add(1);
+                add(2);
+            }
+        };
+        ArrayList<Integer> input2 = new ArrayList<Integer>() {
+            {
+                add(4);
+                add(5);
+                add(1);
+                add(2);
+                add(3);
+            }
+        };
+        FloorPlan fp = new FloorPlan(5, input2);
         fp.printFloorPlan();
     }
     public static void testBST() {
