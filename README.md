@@ -2,8 +2,23 @@
 GL Group Graded Assignment 2 - G2B6 group
 
 ## Q1. Floor plan
-
+Please note this implementation also accepts inputs from users if the FloorPlan() constructor is not passed any inputs.
 ### Sample output
+<pre>
+**************************
+Testing floor plan
+Day: 1
+
+Day: 2
+5 4
+Day: 3
+
+Day: 4
+
+Day: 5
+3 2 1
+**************************
+</pre>
 
 ## Q2. Skewed BST
 We have implements 2 ways to create skewed BST:
